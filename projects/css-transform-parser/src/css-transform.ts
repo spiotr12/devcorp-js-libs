@@ -63,7 +63,9 @@ export class CssTransform {
 
         for (const key of Object.keys(this)) {
             const values: StrOrNum[] = this[key];
-            str += `${key}(${values.join(',')}) `;
+            if (values) {
+                str += `${key}(${values.join(',')}) `;
+            }
         }
 
         return str;
