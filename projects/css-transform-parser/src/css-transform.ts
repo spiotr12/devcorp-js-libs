@@ -1,36 +1,38 @@
+type StrOrNum = string | number;
+
 export class CssTransform {
     // matrix
-    public matrix: string[];
-    public matrix3d: string[];
+    public matrix: StrOrNum[];
+    public matrix3d: StrOrNum[];
 
     // perspective
-    public perspective: [string];
+    public perspective: [StrOrNum];
 
     // rotate
-    public rotate: [string];
-    public rotate3d: [string, string, string, string];
-    public rotateX: [string];
-    public rotateY: [string];
-    public rotateZ: [string];
+    public rotate: [StrOrNum];
+    public rotate3d: [StrOrNum, StrOrNum, StrOrNum, StrOrNum];
+    public rotateX: [StrOrNum];
+    public rotateY: [StrOrNum];
+    public rotateZ: [StrOrNum];
 
     // translate
-    public translate: [string, string];
-    public translate3d: [string, string, string];
-    public translateX: [string];
-    public translateY: [string];
-    public translateZ: [string];
+    public translate: [StrOrNum, StrOrNum];
+    public translate3d: [StrOrNum, StrOrNum, StrOrNum];
+    public translateX: [StrOrNum];
+    public translateY: [StrOrNum];
+    public translateZ: [StrOrNum];
 
     // scale
-    public scale: [string, string];
-    public scale3d: [string, string, string];
-    public scaleX: [string];
-    public scaleY: [string];
-    public scaleZ: [string];
+    public scale: [StrOrNum, StrOrNum];
+    public scale3d: [StrOrNum, StrOrNum, StrOrNum];
+    public scaleX: [StrOrNum];
+    public scaleY: [StrOrNum];
+    public scaleZ: [StrOrNum];
 
     // skew
-    public skew: [string, string];
-    public skewX: [string];
-    public skewY: [string];
+    public skew: [StrOrNum, StrOrNum];
+    public skewX: [StrOrNum];
+    public skewY: [StrOrNum];
 
     constructor(transformString?: string) {
         if (transformString) {
@@ -40,11 +42,17 @@ export class CssTransform {
 
     public static parse(transformString: string): CssTransform {
         const transform = new CssTransform();
+        if (!transformString) {
+            return transform;
+        }
+
         const functions = transformString.match(/(\w+\((\-?\d+\.?\d*e?\-?\w*(,|, )?)+\))+/g);
 
         for (const fn of functions) {
             const segments = fn.match(/[\w\.\-]+/g);
-            transform[segments.shift()] = segments;
+            const key = segments.shift();
+
+            transform[key] = segments.map(s => isNaN(+s) ? s : +s);
         }
 
         return transform;
@@ -54,7 +62,7 @@ export class CssTransform {
         let str = '';
 
         for (const key of Object.keys(this)) {
-            const values: string[] = this[key];
+            const values: StrOrNum[] = this[key];
             str += `${key}(${values.join(',')}) `;
         }
 
