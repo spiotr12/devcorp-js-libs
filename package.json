@@ -5,11 +5,12 @@
   "main": "index.js",
   "author": "Piotr Starzec",
   "license": "ISC",
+  "repository": "https://github.com/spiotr12/devcorp-js-libs.git",
   "scripts": {
-    "build:css-transform-parser": "tsc --project projects/css-transform-parser/tsconfig.lib.json",
-    "lint:css-transform-parser": "tslint --project projects/css-transform-parser/tsconfig.lib.json"
+    "build:css-transform-parser": "cd projects/css-transform-parser && npm run build"
   },
   "devDependencies": {
+    "copyfiles": "^2.1.1",
     "tslint": "^5.20.1",
     "typescript": "^3.7.4"
   }
