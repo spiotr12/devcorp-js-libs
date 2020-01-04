@@ -1,8 +1,8 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "outDir": "../../dist/css-transform-parser",
+    "baseUrl": "../css-transform-parser",
+    "outDir": "../../dist/transform-parser",
     "declaration": true,
     "inlineSources": true
   },

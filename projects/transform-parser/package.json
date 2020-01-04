@@ -1,5 +1,5 @@
 {
-  "name": "@devcorp-libs/css-transform-parser",
+  "name": "@devcorp-libs/transform-parser",
   "version": "1.0.2",
   "description": "Function that allows to parse css transform property into js object",
   "author": "Piotr Starzec",
@@ -13,7 +13,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc --project tsconfig.lib.json",
-    "postbuild": "copyfiles package.json README.md ../../dist/css-transform-parser",
+    "postbuild": "copyfiles package.json README.md ../../dist/transform-parser",
     "lint": "tslint --project tsconfig.lib.json"
   }
 }

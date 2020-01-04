@@ -7,7 +7,7 @@
   "license": "ISC",
   "repository": "https://github.com/spiotr12/devcorp-js-libs.git",
   "scripts": {
-    "build:css-transform-parser": "cd projects/css-transform-parser && npm run build"
+    "build:transform-parser": "cd projects/transform-parser && npm run build"
   },
   "devDependencies": {
     "copyfiles": "^2.1.1",
