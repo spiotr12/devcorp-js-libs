@@ -1,6 +1,6 @@
 {
   "name": "@devcorp-libs/css-transform-parser",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Function that allows to parse css transform property into js object",
   "author": "Piotr Starzec",
   "repository": "https://github.com/spiotr12/devcorp-js-libs.git",

@@ -1,7 +1,7 @@
 import { StrOrNum } from './types';
 
 
-export class CssTransform {
+export class SvgTransform {
     // matrix
     public matrix: StrOrNum[];
     public matrix3d: StrOrNum[];
@@ -10,39 +10,26 @@ export class CssTransform {
     public perspective: [StrOrNum];
 
     // rotate
-    public rotate: [StrOrNum];
-    public rotate3d: [StrOrNum, StrOrNum, StrOrNum, StrOrNum];
-    public rotateX: [StrOrNum];
-    public rotateY: [StrOrNum];
-    public rotateZ: [StrOrNum];
+    public rotate: [StrOrNum, StrOrNum?, StrOrNum?];
 
     // translate
-    public translate: [StrOrNum, StrOrNum];
-    public translate3d: [StrOrNum, StrOrNum, StrOrNum];
-    public translateX: [StrOrNum];
-    public translateY: [StrOrNum];
-    public translateZ: [StrOrNum];
+    public translate: [StrOrNum, StrOrNum?];
 
     // scale
-    public scale: [StrOrNum, StrOrNum];
-    public scale3d: [StrOrNum, StrOrNum, StrOrNum];
-    public scaleX: [StrOrNum];
-    public scaleY: [StrOrNum];
-    public scaleZ: [StrOrNum];
+    public scale: [StrOrNum, StrOrNum?];
 
     // skew
-    public skew: [StrOrNum, StrOrNum];
     public skewX: [StrOrNum];
     public skewY: [StrOrNum];
 
     constructor(transformString?: string) {
         if (transformString) {
-            return CssTransform.parse(transformString);
+            return SvgTransform.parse(transformString);
         }
     }
 
-    public static parse(transformString: string): CssTransform {
-        const transform = new CssTransform();
+    public static parse(transformString: string): SvgTransform {
+        const transform = new SvgTransform();
         if (!transformString) {
             return transform;
         }
