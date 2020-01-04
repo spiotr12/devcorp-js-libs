@@ -1,0 +1,6 @@
+/out-tsc
+/dist
+
+/node_modules
+
+/.idea

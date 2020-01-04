@@ -1,0 +1,16 @@
+{
+  "name": "devcorp-js-libs",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "author": "Piotr Starzec",
+  "license": "ISC",
+  "scripts": {
+    "build:css-transform-parser": "tsc --project projects/css-transform-parser/tsconfig.lib.json",
+    "lint:css-transform-parser": "tslint --project projects/css-transform-parser/tsconfig.lib.json"
+  },
+  "devDependencies": {
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.4"
+  }
+}
