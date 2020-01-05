@@ -1,26 +1,23 @@
-import { StrOrNum } from './types';
-
-
 export class SvgTransform {
     // matrix
-    public matrix: StrOrNum[];
-    public matrix3d: StrOrNum[];
+    public matrix: number[];
+    public matrix3d: number[];
 
     // perspective
-    public perspective: [StrOrNum];
+    public perspective: [number];
 
     // rotate
-    public rotate: [StrOrNum, StrOrNum?, StrOrNum?];
+    public rotate: [number, number?, number?];
 
     // translate
-    public translate: [StrOrNum, StrOrNum?];
+    public translate: [number, number?];
 
     // scale
-    public scale: [StrOrNum, StrOrNum?];
+    public scale: [number, number?];
 
     // skew
-    public skewX: [StrOrNum];
-    public skewY: [StrOrNum];
+    public skewX: [number];
+    public skewY: [number];
 
     constructor(transformString?: string) {
         if (transformString) {
@@ -34,7 +31,7 @@ export class SvgTransform {
             return transform;
         }
 
-        const functions = transformString.match(/(\w+\((\-?\d+\.?\d*e?\-?\w*(,|, | )?)+\))+/g);
+        const functions = transformString.match(/(\w+\((\-?\d+\.?\d*e?\-?\d*(,|, | )?)+\))+/g);
 
         for (const fn of functions) {
             const segments = fn.match(/[\w\.\-]+/g);
@@ -50,7 +47,7 @@ export class SvgTransform {
         let str = '';
 
         for (const key of Object.keys(this)) {
-            const values: StrOrNum[] = this[key];
+            const values: number[] = this[key];
             if (values) {
                 str += `${key}(${values.join(',')}) `;
             }

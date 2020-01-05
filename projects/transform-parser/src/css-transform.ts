@@ -1,39 +1,36 @@
-import { StrOrNum } from './types';
-
-
 export class CssTransform {
     // matrix
-    public matrix: StrOrNum[];
-    public matrix3d: StrOrNum[];
+    public matrix: string[];
+    public matrix3d: string[];
 
     // perspective
-    public perspective: [StrOrNum];
+    public perspective: [string];
 
     // rotate
-    public rotate: [StrOrNum];
-    public rotate3d: [StrOrNum, StrOrNum, StrOrNum, StrOrNum];
-    public rotateX: [StrOrNum];
-    public rotateY: [StrOrNum];
-    public rotateZ: [StrOrNum];
+    public rotate: [string];
+    public rotate3d: [string, string, string, string];
+    public rotateX: [string];
+    public rotateY: [string];
+    public rotateZ: [string];
 
     // translate
-    public translate: [StrOrNum, StrOrNum];
-    public translate3d: [StrOrNum, StrOrNum, StrOrNum];
-    public translateX: [StrOrNum];
-    public translateY: [StrOrNum];
-    public translateZ: [StrOrNum];
+    public translate: [string, string];
+    public translate3d: [string, string, string];
+    public translateX: [string];
+    public translateY: [string];
+    public translateZ: [string];
 
     // scale
-    public scale: [StrOrNum, StrOrNum];
-    public scale3d: [StrOrNum, StrOrNum, StrOrNum];
-    public scaleX: [StrOrNum];
-    public scaleY: [StrOrNum];
-    public scaleZ: [StrOrNum];
+    public scale: [string, string];
+    public scale3d: [string, string, string];
+    public scaleX: [string];
+    public scaleY: [string];
+    public scaleZ: [string];
 
     // skew
-    public skew: [StrOrNum, StrOrNum];
-    public skewX: [StrOrNum];
-    public skewY: [StrOrNum];
+    public skew: [string, string];
+    public skewX: [string];
+    public skewY: [string];
 
     constructor(transformString?: string) {
         if (transformString) {
@@ -63,7 +60,7 @@ export class CssTransform {
         let str = '';
 
         for (const key of Object.keys(this)) {
-            const values: StrOrNum[] = this[key];
+            const values: string[] = this[key];
             if (values) {
                 str += `${key}(${values.join(',')}) `;
             }
