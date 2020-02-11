@@ -4,12 +4,14 @@
     "baseUrl": "../css-transform-parser",
     "outDir": "../../dist/transform-parser",
     "declaration": true,
-    "inlineSources": true
+    "inlineSources": true,
+    "module": "commonjs",
+    "types": [
+      "jasmine"
+    ]
   },
   "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "src/**/*.spec.ts"
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
   ]
 }
