@@ -1,6 +1,6 @@
 {
   "name": "@devcorp-libs/query-builder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Utility that helps to build and parse complex paginate, soring and filtering queries in http query params",
   "author": "Piotr Starzec",
   "repository": "https://github.com/spiotr12/devcorp-js-libs.git",
