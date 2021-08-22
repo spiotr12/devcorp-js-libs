@@ -1,8 +1,8 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "../transform-parser",
-    "outDir": "../../dist/transform-parser",
+    "baseUrl": "../query-builder",
+    "outDir": "../../dist/query-builder",
     "declaration": true,
     "inlineSources": true
   },
