@@ -1,8 +1,8 @@
-import { FilterOperator } from './filter-operator';
+import { DclFilterOperator } from './filter-operator';
 
 
-export interface IFilter {
+export interface DclFilter {
   key: string;
-  operator: FilterOperator;
+  operator: DclFilterOperator;
   value: string | number | boolean | null | undefined;
 }

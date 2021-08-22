@@ -1,68 +1,68 @@
-import { FilterOperator } from './filter-operator';
-import { IFilter } from './filter.interface';
-import { IQuery } from './query.interface';
-import { ISort } from './sort.interface';
+import { DclFilterOperator } from './filter-operator';
+import { DclFilter } from './filter.interface';
+import { DclQuery } from './query.interface';
+import { DclSort } from './sort.interface';
 
-export interface IHttpQueryParams {
+interface IHttpQueryParams {
   [key: string]: any;
 }
 
-export interface IQueryBuilderOptions {
+export interface DclQueryBuilderOptions {
   pageParamKey: string;
   limitParamKey: string;
   sortParamKey: string;
 }
 
-const DEFAULT_OPTIONS: IQueryBuilderOptions = {
+const DEFAULT_OPTIONS: DclQueryBuilderOptions = {
   pageParamKey: '_page',
   limitParamKey: '_limit',
   sortParamKey: '_sort',
 };
 
 const POSSIBLE_OPERATORS = [
-  FilterOperator.Equal,
-  FilterOperator.NotEqual,
-  FilterOperator.GreaterThan,
-  FilterOperator.LessThan,
-  FilterOperator.GreaterThanOrEqual,
-  FilterOperator.LessThanOrEqual,
-  FilterOperator.Contains,
+  DclFilterOperator.Equal,
+  DclFilterOperator.NotEqual,
+  DclFilterOperator.GreaterThan,
+  DclFilterOperator.LessThan,
+  DclFilterOperator.GreaterThanOrEqual,
+  DclFilterOperator.LessThanOrEqual,
+  DclFilterOperator.Contains,
 ].sort((a, b) => b.length - a.length);
 
-export class QueryBuilder {
+export class DclQueryBuilder {
 
-  private readonly options: IQueryBuilderOptions;
+  private readonly options: DclQueryBuilderOptions;
 
-  constructor(options: Partial<IQueryBuilderOptions> = {}) {
+  constructor(options: Partial<DclQueryBuilderOptions> = {}) {
     this.options = { ...DEFAULT_OPTIONS, ...options };
   }
 
-  public filterOperatorToSqlOperator(operator: FilterOperator | string, value: string | number | null): string {
-    if (operator === FilterOperator.Equal && value === null) {
+  public filterOperatorToSqlOperator(operator: DclFilterOperator | string, value: string | number | null): string {
+    if (operator === DclFilterOperator.Equal && value === null) {
       return `IS`;
     }
 
-    if (operator === FilterOperator.NotEqual && value === null) {
+    if (operator === DclFilterOperator.NotEqual && value === null) {
       return `IS NOT`;
     }
 
-    if (operator === FilterOperator.Equal) {
+    if (operator === DclFilterOperator.Equal) {
       return `=`;
     }
 
-    if (operator === FilterOperator.NotEqual) {
+    if (operator === DclFilterOperator.NotEqual) {
       return `<>`;
     }
 
-    if (operator === FilterOperator.Contains) {
+    if (operator === DclFilterOperator.Contains) {
       return `LIKE`;
     }
 
     const otherOperators = [
-      FilterOperator.GreaterThan,
-      FilterOperator.LessThan,
-      FilterOperator.GreaterThanOrEqual,
-      FilterOperator.LessThanOrEqual,
+      DclFilterOperator.GreaterThan,
+      DclFilterOperator.LessThan,
+      DclFilterOperator.GreaterThanOrEqual,
+      DclFilterOperator.LessThanOrEqual,
     ] as string[];
 
     if (otherOperators.includes(operator)) {
@@ -72,11 +72,11 @@ export class QueryBuilder {
     throw new Error('Operator not recognized');
   }
 
-  public filterOperatorToMongoOperator(operator: FilterOperator | string, value: string | number | null): string {
+  public filterOperatorToMongoOperator(operator: DclFilterOperator | string, value: string | number | null): string {
     throw new Error('Not Implemented');
   }
 
-  public queryToHttpQueryParams(query: IQuery): IHttpQueryParams {
+  public queryToHttpQueryParams(query: DclQuery): IHttpQueryParams {
     const params: IHttpQueryParams = {};
 
     // Pagination
@@ -112,8 +112,8 @@ export class QueryBuilder {
                                 options: {
                                   defaultPage?: number, defaultLimit?: number,
                                   allowComaSeparatedArrays?: boolean,
-                                } = {}): IQuery {
-    const query: IQuery = {};
+                                } = {}): DclQuery {
+    const query: DclQuery = {};
 
     const page = +httpQueryParams._page || options?.defaultPage;
     if (page !== undefined) {
@@ -138,14 +138,14 @@ export class QueryBuilder {
     return query;
   }
 
-  private parseSortHttpQueryParams(sort: string): ISort[] {
+  private parseSortHttpQueryParams(sort: string): DclSort[] {
     if (!sort || sort.length === 0) {
       return [];
     }
 
     const sorts = sort.split(',');
 
-    const parsedSorts: ISort[] = [];
+    const parsedSorts: DclSort[] = [];
 
     sorts.forEach((s) => {
       if (s.startsWith('-')) {
@@ -161,7 +161,7 @@ export class QueryBuilder {
   private parseFilterHttpQueryParams(httpQueryParams: { [key: string]: string },
                                      options: {
                                        allowComaSeparatedArrays?: boolean
-                                     } = {}): IFilter[] {
+                                     } = {}): DclFilter[] {
     const keyOperators = [this.options.pageParamKey, this.options.limitParamKey, this.options.sortParamKey];
     const filterKeys = Object.keys(httpQueryParams).filter((key) => !keyOperators.includes(key));
 
@@ -169,7 +169,7 @@ export class QueryBuilder {
       return [];
     }
 
-    const filters: IFilter[] = [];
+    const filters: DclFilter[] = [];
 
     filterKeys.forEach((key) => {
       const filterStr = httpQueryParams[key];
@@ -190,7 +190,7 @@ export class QueryBuilder {
     return filters;
   }
 
-  private parseFilterStr(key: string, filterStr: string): IFilter {
+  private parseFilterStr(key: string, filterStr: string): DclFilter {
     let operator = POSSIBLE_OPERATORS.find((op) => filterStr.trim().startsWith(op));
 
     if (!operator && !!filterStr.match(/^([^a-zA-Z0-9])+/g)) {
@@ -203,7 +203,7 @@ export class QueryBuilder {
     if (operator) {
       value = filterStr.substring(operator.length);
     } else {
-      operator = FilterOperator.Equal;
+      operator = DclFilterOperator.Equal;
       value = filterStr;
     }
 

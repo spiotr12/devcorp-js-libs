@@ -1,21 +1,21 @@
-import { FilterOperator } from './filter-operator';
-import { IQueryBuilderOptions, QueryBuilder } from './query-builder';
-import { IQuery } from './query.interface';
+import { DclFilterOperator } from './filter-operator';
+import { DclQueryBuilderOptions, DclQueryBuilder } from './query-builder';
+import { DclQuery } from './query.interface';
 
 describe('QueryBuilder', () => {
-  let queryBuilder: QueryBuilder;
+  let queryBuilder: DclQueryBuilder;
 
   beforeEach(() => {
-    queryBuilder = new QueryBuilder();
+    queryBuilder = new DclQueryBuilder();
   });
 
   describe('constructor', () => {
     it('should use default options', () => {
       // Arrange
-      const options = {} as IQueryBuilderOptions;
+      const options = {} as DclQueryBuilderOptions;
 
       // Act
-      queryBuilder = new QueryBuilder(options);
+      queryBuilder = new DclQueryBuilder(options);
 
       // Assert
       expect((queryBuilder as any).options).toEqual({
@@ -31,10 +31,10 @@ describe('QueryBuilder', () => {
         pageParamKey: 'custom-page',
         limitParamKey: 'limit-page',
         sortParamKey: 'sort-page',
-      } as IQueryBuilderOptions;
+      } as DclQueryBuilderOptions;
 
       // Act
-      queryBuilder = new QueryBuilder(options);
+      queryBuilder = new DclQueryBuilder(options);
 
       // Assert
       expect((queryBuilder as any).options).toEqual(options);
@@ -44,7 +44,7 @@ describe('QueryBuilder', () => {
   describe('filterOperatorToSqlOperator', () => {
     it('should parse Equal operator and some value to "="', () => {
       // Arrange
-      const opearator = FilterOperator.Equal;
+      const opearator = DclFilterOperator.Equal;
       const value = 'something';
 
       // Act
@@ -56,7 +56,7 @@ describe('QueryBuilder', () => {
 
     it('should parse Equal operator and null value to "IS"', () => {
       // Arrange
-      const opearator = FilterOperator.Equal;
+      const opearator = DclFilterOperator.Equal;
       const value = null;
 
       // Act
@@ -68,7 +68,7 @@ describe('QueryBuilder', () => {
 
     it('should parse NotEqual operator and some value to "<>"', () => {
       // Arrange
-      const opearator = FilterOperator.NotEqual;
+      const opearator = DclFilterOperator.NotEqual;
       const value = 'something';
 
       // Act
@@ -80,7 +80,7 @@ describe('QueryBuilder', () => {
 
     it('should parse NotEqual operator and null value to "IS"', () => {
       // Arrange
-      const opearator = FilterOperator.NotEqual;
+      const opearator = DclFilterOperator.NotEqual;
       const value = null;
 
       // Act
@@ -92,7 +92,7 @@ describe('QueryBuilder', () => {
 
     it('should parse Contains operator and some value to "LIKE"', () => {
       // Arrange
-      const opearator = FilterOperator.Contains;
+      const opearator = DclFilterOperator.Contains;
       const value = 'something';
 
       // Act
@@ -104,7 +104,7 @@ describe('QueryBuilder', () => {
 
     it('should parse GreaterThan operator and some value to ">"', () => {
       // Arrange
-      const opearator = FilterOperator.GreaterThan;
+      const opearator = DclFilterOperator.GreaterThan;
       const value = 'something';
 
       // Act
@@ -116,7 +116,7 @@ describe('QueryBuilder', () => {
 
     it('should parse LessThan operator and some value to "<"', () => {
       // Arrange
-      const opearator = FilterOperator.LessThan;
+      const opearator = DclFilterOperator.LessThan;
       const value = 'something';
 
       // Act
@@ -128,7 +128,7 @@ describe('QueryBuilder', () => {
 
     it('should parse GreaterThanOrEqual operator and some value to ">="', () => {
       // Arrange
-      const opearator = FilterOperator.GreaterThanOrEqual;
+      const opearator = DclFilterOperator.GreaterThanOrEqual;
       const value = 'something';
 
       // Act
@@ -140,7 +140,7 @@ describe('QueryBuilder', () => {
 
     it('should parse LessThanOrEqual operator and some value to "<="', () => {
       // Arrange
-      const opearator = FilterOperator.LessThanOrEqual;
+      const opearator = DclFilterOperator.LessThanOrEqual;
       const value = 'something';
 
       // Act
@@ -182,7 +182,7 @@ describe('QueryBuilder', () => {
   describe('queryToHttpQueryParams', () => {
     it('should return empty object', () => {
       // Arrange
-      const query = {} as IQuery;
+      const query = {} as DclQuery;
 
       // Act
       const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -196,7 +196,7 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           page: 12,
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -211,7 +211,7 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           limit: 100,
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -230,7 +230,7 @@ describe('QueryBuilder', () => {
           sortBy: [
             { key: 'propKey' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -247,7 +247,7 @@ describe('QueryBuilder', () => {
           sortBy: [
             { key: 'propKey', order: 'ASC' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -264,7 +264,7 @@ describe('QueryBuilder', () => {
           sortBy: [
             { key: 'propKey', order: 'DESC' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -283,7 +283,7 @@ describe('QueryBuilder', () => {
             { key: 'propKey2' },
             { key: 'propKey3', order: 'DESC' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -300,9 +300,9 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 'something' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -317,9 +317,9 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.NotEqual, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.NotEqual, value: 'something' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -334,9 +334,9 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.GreaterThan, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.GreaterThan, value: 'something' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -351,9 +351,9 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.LessThan, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.LessThan, value: 'something' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -368,9 +368,9 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.GreaterThanOrEqual, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.GreaterThanOrEqual, value: 'something' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -385,9 +385,9 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.LessThanOrEqual, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.LessThanOrEqual, value: 'something' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -402,9 +402,9 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Contains, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.Contains, value: 'something' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -419,9 +419,9 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: null },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: null },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -436,9 +436,9 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: undefined },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: undefined },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -453,9 +453,9 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 123 },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 123 },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -470,9 +470,9 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 123 },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 123 },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -487,9 +487,9 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 123.45 },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 123.45 },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -504,9 +504,9 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop.nested', operator: FilterOperator.Equal, value: 'something' },
+            { key: 'prop.nested', operator: DclFilterOperator.Equal, value: 'something' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -521,10 +521,10 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 'something' },
-            { key: 'prop', operator: FilterOperator.Equal, value: 'other' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 'other' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -539,10 +539,10 @@ describe('QueryBuilder', () => {
         // Arrange
         const query = {
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 'something' },
-            { key: 'prop', operator: FilterOperator.NotEqual, value: 'other' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.NotEqual, value: 'other' },
           ],
-        } as IQuery;
+        } as DclQuery;
 
         // Act
         const httpQueryParams = queryBuilder.queryToHttpQueryParams(query);
@@ -723,7 +723,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: '' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: '' },
           ],
         });
       });
@@ -731,7 +731,7 @@ describe('QueryBuilder', () => {
       it('should parse single string filter with Equal operator', () => {
         // Arrange
         const httpQueryParams = {
-          'prop': `${FilterOperator.Equal}something`,
+          'prop': `${DclFilterOperator.Equal}something`,
         };
 
         // Act
@@ -740,7 +740,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 'something' },
           ],
         });
       });
@@ -748,7 +748,7 @@ describe('QueryBuilder', () => {
       it('should parse single string filter with NotEqual operator', () => {
         // Arrange
         const httpQueryParams = {
-          'prop': `${FilterOperator.NotEqual}something`,
+          'prop': `${DclFilterOperator.NotEqual}something`,
         };
 
         // Act
@@ -757,7 +757,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.NotEqual, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.NotEqual, value: 'something' },
           ],
         });
       });
@@ -765,7 +765,7 @@ describe('QueryBuilder', () => {
       it('should parse single string filter with GreaterThan operator', () => {
         // Arrange
         const httpQueryParams = {
-          'prop': `${FilterOperator.GreaterThan}something`,
+          'prop': `${DclFilterOperator.GreaterThan}something`,
         };
 
         // Act
@@ -774,7 +774,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.GreaterThan, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.GreaterThan, value: 'something' },
           ],
         });
       });
@@ -782,7 +782,7 @@ describe('QueryBuilder', () => {
       it('should parse single string filter with LessThan operator', () => {
         // Arrange
         const httpQueryParams = {
-          'prop': `${FilterOperator.LessThan}something`,
+          'prop': `${DclFilterOperator.LessThan}something`,
         };
 
         // Act
@@ -791,7 +791,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.LessThan, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.LessThan, value: 'something' },
           ],
         });
       });
@@ -799,7 +799,7 @@ describe('QueryBuilder', () => {
       it('should parse single string filter with GreaterThanOrEqual operator', () => {
         // Arrange
         const httpQueryParams = {
-          'prop': `${FilterOperator.GreaterThanOrEqual}something`,
+          'prop': `${DclFilterOperator.GreaterThanOrEqual}something`,
         };
 
         // Act
@@ -808,7 +808,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.GreaterThanOrEqual, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.GreaterThanOrEqual, value: 'something' },
           ],
         });
       });
@@ -816,7 +816,7 @@ describe('QueryBuilder', () => {
       it('should parse single string filter with LessThanOrEqual operator', () => {
         // Arrange
         const httpQueryParams = {
-          'prop': `${FilterOperator.LessThanOrEqual}something`,
+          'prop': `${DclFilterOperator.LessThanOrEqual}something`,
         };
 
         // Act
@@ -825,7 +825,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.LessThanOrEqual, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.LessThanOrEqual, value: 'something' },
           ],
         });
       });
@@ -833,7 +833,7 @@ describe('QueryBuilder', () => {
       it('should parse single string filter with Contains operator', () => {
         // Arrange
         const httpQueryParams = {
-          'prop': `${FilterOperator.Contains}something`,
+          'prop': `${DclFilterOperator.Contains}something`,
         };
 
         // Act
@@ -842,7 +842,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Contains, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.Contains, value: 'something' },
           ],
         });
       });
@@ -889,7 +889,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: true },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: true },
           ],
         });
       });
@@ -906,7 +906,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: false },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: false },
           ],
         });
       });
@@ -923,7 +923,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: null },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: null },
           ],
         });
       });
@@ -940,7 +940,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: undefined },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: undefined },
           ],
         });
       });
@@ -957,7 +957,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 123 },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 123 },
           ],
         });
       });
@@ -974,7 +974,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 123.45 },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 123.45 },
           ],
         });
       });
@@ -992,8 +992,8 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop1', operator: FilterOperator.Equal, value: 123.45 },
-            { key: 'prop2', operator: FilterOperator.Contains, value: 'something' },
+            { key: 'prop1', operator: DclFilterOperator.Equal, value: 123.45 },
+            { key: 'prop2', operator: DclFilterOperator.Contains, value: 'something' },
           ],
         });
       });
@@ -1010,7 +1010,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop.nested', operator: FilterOperator.Equal, value: 'something' },
+            { key: 'prop.nested', operator: DclFilterOperator.Equal, value: 'something' },
           ],
         });
       });
@@ -1027,7 +1027,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 'something,other' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 'something,other' },
           ],
         });
       });
@@ -1044,7 +1044,7 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 'something,@=other,different,!=nothing' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 'something,@=other,different,!=nothing' },
           ],
         });
       });
@@ -1064,8 +1064,8 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 'something' },
-            { key: 'prop', operator: FilterOperator.Equal, value: 'other' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 'other' },
           ],
         });
       });
@@ -1085,10 +1085,10 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 'something' },
-            { key: 'prop', operator: FilterOperator.Contains, value: 'other' },
-            { key: 'prop', operator: FilterOperator.Equal, value: 'different' },
-            { key: 'prop', operator: FilterOperator.NotEqual, value: 'nothing' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.Contains, value: 'other' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 'different' },
+            { key: 'prop', operator: DclFilterOperator.NotEqual, value: 'nothing' },
           ],
         });
       });
@@ -1105,9 +1105,9 @@ describe('QueryBuilder', () => {
         // Assert
         expect(query).toEqual({
           filterBy: [
-            { key: 'prop', operator: FilterOperator.Equal, value: 'something' },
-            { key: 'prop', operator: FilterOperator.Equal, value: 'other' },
-            { key: 'prop', operator: FilterOperator.Contains, value: 'different' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 'something' },
+            { key: 'prop', operator: DclFilterOperator.Equal, value: 'other' },
+            { key: 'prop', operator: DclFilterOperator.Contains, value: 'different' },
           ],
         });
       });

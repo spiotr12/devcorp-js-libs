@@ -1,4 +1,4 @@
-export enum FilterOperator {
+export enum DclFilterOperator {
   Equal = '==',
   NotEqual = '!=',
   GreaterThan = '>',

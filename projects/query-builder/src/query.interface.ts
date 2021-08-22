@@ -1,9 +1,9 @@
-import { ISort } from './sort.interface';
-import { IFilter } from './filter.interface';
+import { DclFilter } from './filter.interface';
+import { DclSort } from './sort.interface';
 
-export interface IQuery {
+export interface DclQuery {
   limit?: number;
   page?: number;
-  sortBy?: ISort[];
-  filterBy?: IFilter[];
+  sortBy?: DclSort[];
+  filterBy?: DclFilter[];
 }
