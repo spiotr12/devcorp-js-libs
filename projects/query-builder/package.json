@@ -16,8 +16,8 @@
   ],
   "main": "index.js",
   "scripts": {
-    "build": "tsc --project tsconfig.lib.json",
+    "build": "tsc --project tsconfig.json",
     "postbuild": "copyfiles package.json README.md ../../dist/query-builder",
-    "lint": "tslint --project tsconfig.lib.json"
+    "lint": "tslint --project tsconfig.json"
   }
 }

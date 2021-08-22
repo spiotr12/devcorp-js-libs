@@ -1,12 +1,12 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "../transform-parser",
-    "outDir": "../../dist/transform-parser",
-    "declaration": true,
-    "inlineSources": true
+    "outDir": "../../dist/transform-parser"
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
   ]
 }

@@ -1,0 +1,7 @@
+{
+  "extends": [
+    "../../.eslintrc.json",
+    "plugin:@typescript-eslint/recommended",
+    "../../.eslintrc.global.json"
+  ]
+}

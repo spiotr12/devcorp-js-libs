@@ -1,12 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/query-builder"
+    "outDir": "../../dist/query-builder-spec",
+    "types": [
+      "jest"
+    ]
   },
   "include": [
     "src"
-  ],
-  "exclude": [
-    "**/*.spec.ts"
   ]
 }

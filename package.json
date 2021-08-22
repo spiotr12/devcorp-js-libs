@@ -10,8 +10,15 @@
     "build:transform-parser": "cd projects/transform-parser && npm run build"
   },
   "devDependencies": {
-    "copyfiles": "^2.1.1",
-    "tslint": "^5.20.1",
-    "typescript": "^3.7.4"
+    "@types/jest": "~27.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.29.2",
+    "@typescript-eslint/parser": "^4.29.2",
+    "copyfiles": "~2.1.1",
+    "eslint": "~7.32.0",
+    "jest": "~27.0.6",
+    "jest-jasmine2": "~27.0.6",
+    "ts-jest": "~27.0.5",
+    "tslint": "~5.20.1",
+    "typescript": "~3.7.4"
   }
 }
