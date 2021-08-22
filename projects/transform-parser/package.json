@@ -12,7 +12,7 @@
   ],
   "main": "index.js",
   "scripts": {
-    "build": "tsc --project tsconfig.json",
+    "build": "tsc --project tsconfig.lib.json",
     "postbuild": "copyfiles package.json README.md ../../dist/transform-parser",
     "lint": "tslint --project tsconfig.json"
   }

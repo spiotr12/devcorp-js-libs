@@ -7,6 +7,7 @@
   "license": "ISC",
   "repository": "https://github.com/spiotr12/devcorp-js-libs.git",
   "scripts": {
+    "build:query-builder": "cd projects/query-builder && npm run build",
     "build:transform-parser": "cd projects/transform-parser && npm run build"
   },
   "devDependencies": {
@@ -18,7 +19,6 @@
     "jest": "~27.0.6",
     "jest-jasmine2": "~27.0.6",
     "ts-jest": "~27.0.5",
-    "tslint": "~5.20.1",
-    "typescript": "~3.7.4"
+    "typescript": "~4.3.5"
   }
 }
